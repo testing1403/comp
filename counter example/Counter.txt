@@ -1,0 +1,40 @@
+import React, {Component} from 'react';
+import {Text, View, Button} from 'react-native';
+import {connect} from 'react-redux';
+class Count extends Component {
+  render() {
+    return (
+      <View>
+        <Button title="Increase" onPress={() => this.props.increaseCOUNT()} />
+
+        <Text style={{fontSize: 20, alignSelf: 'center', padding: 20}}>
+          {this.props.counter}
+        </Text>
+        <Button title="decrease" onPress={() => this.props.decreaseCOUNT()} />
+
+        <Button
+          title="MULTIPLY_COUNT"
+          onPress={() => this.props.multiplyCOUNT()}
+        />
+      </View>
+    );
+  }
+}
+
+function mapStateToProps(state) {
+  console.log('mapStateToProps');
+  return {
+    counter: state.counter,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  console.log('dispatch');
+  return {
+    increaseCOUNT: () => dispatch({type: 'INCREASE_COUNT'}),
+    decreaseCOUNT: () => dispatch({type: 'DECREASE_COUNT'}),
+    multiplyCOUNT: () => dispatch({type: 'MULTIPLY_COUNT'}),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Count);
